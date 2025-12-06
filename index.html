@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Exam Prep</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Remove the firebase-config.js script tag - we'll import it in script.js -->
+</head>
+<body>
+    <div id="app-loading-overlay">
+        <div class="loading-content">
+            <h2>Loading...</h2>
+        </div>
+    </div>
+    
+    <div id="welcome-page" style="display: none;">
+        <!-- Auth content will go here -->
+    </div>
+    
+    <div id="main-content" style="display: none;">
+        <!-- Main app content will go here -->
+    </div>
+    
+    <!-- Add type="module" to script.js -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
