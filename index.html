@@ -6,24 +6,139 @@
     <title>University Exam Prep</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Remove the firebase-config.js script tag - we'll import it in script.js -->
 </head>
 <body>
+    <!-- Loading Screen -->
     <div id="app-loading-overlay">
         <div class="loading-content">
-            <h2>Loading...</h2>
+            <div class="spinner"></div>
+            <h2>Loading University Exam Prep...</h2>
+            <p id="loading-message">Initializing...</p>
         </div>
     </div>
-    
-    <div id="welcome-page" style="display: none;">
-        <!-- Auth content will go here -->
+
+    <!-- Welcome/Auth Page -->
+    <div id="welcome-page" class="hidden">
+        <div class="card">
+            <h1 class="title">📚 University Exam Prep</h1>
+            <p class="subtitle">Your ultimate study companion</p>
+            
+            <!-- Method Selection -->
+            <div id="method-selection">
+                <button class="btn primary" onclick="showLogin()">🔐 Login</button>
+                <button class="btn secondary" onclick="showSignup()">📝 Sign Up</button>
+                <button class="btn google" onclick="loginWithGoogle()">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Continue with Google
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="hidden">
+                <h3>Login to Your Account</h3>
+                <input type="email" id="login-email" placeholder="Email" class="input">
+                <input type="password" id="login-password" placeholder="Password" class="input">
+                <button class="btn primary" onclick="handleLogin()">Login</button>
+                <button class="btn link" onclick="showForgotPassword()">Forgot Password?</button>
+                <button class="btn back" onclick="showMethods()">← Back</button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="hidden">
+                <h3>Create New Account</h3>
+                <input type="text" id="signup-name" placeholder="Full Name" class="input">
+                <input type="email" id="signup-email" placeholder="Email" class="input">
+                <input type="password" id="signup-password" placeholder="Password" class="input">
+                <input type="password" id="signup-confirm" placeholder="Confirm Password" class="input">
+                <button class="btn primary" onclick="handleSignup()">Create Account</button>
+                <button class="btn back" onclick="showMethods()">← Back</button>
+            </div>
+
+            <!-- Forgot Password -->
+            <div id="forgot-password" class="hidden">
+                <h3>Reset Password</h3>
+                <input type="email" id="reset-email" placeholder="Enter your email" class="input">
+                <button class="btn primary" onclick="handlePasswordReset()">Send Reset Link</button>
+                <button class="btn back" onclick="showLogin()">← Back to Login</button>
+            </div>
+        </div>
     </div>
-    
-    <div id="main-content" style="display: none;">
-        <!-- Main app content will go here -->
+
+    <!-- Main App Content -->
+    <div id="main-content" class="hidden">
+        <div class="app-header">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <h2 id="welcome-message">Welcome</h2>
+        </div>
+
+        <div class="side-menu" id="side-menu">
+            <div class="menu-header">
+                <h3>📚 Exam Prep</h3>
+                <p id="menu-user-email"></p>
+            </div>
+            <div class="menu-items">
+                <button class="menu-item" onclick="showDashboard()">🏠 Dashboard</button>
+                <button class="menu-item" onclick="showSubjects()">📖 Subjects</button>
+                <button class="menu-item" onclick="showQuiz()">🎯 Start Quiz</button>
+                <button class="menu-item" onclick="showBookmarks()">⭐ Bookmarks</button>
+                <button class="menu-item" onclick="showSettings()">⚙️ Settings</button>
+                <button class="menu-item" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+        <!-- Main Sections -->
+        <div id="dashboard" class="section active">
+            <h2>Dashboard</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Questions</h3>
+                    <p id="total-questions">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <p id="completed-questions">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Accuracy</h3>
+                    <p id="accuracy-rate">0%</p>
+                </div>
+            </div>
+            <button class="btn primary" onclick="showQuiz()">Start New Quiz</button>
+        </div>
+
+        <div id="subjects" class="section hidden">
+            <h2>Select Subject</h2>
+            <div class="subject-grid" id="subject-grid">
+                <!-- Subjects will be loaded here -->
+            </div>
+        </div>
+
+        <div id="quiz" class="section hidden">
+            <h2>Quiz</h2>
+            <div id="quiz-container">
+                <!-- Quiz questions will be loaded here -->
+            </div>
+        </div>
+
+        <div id="bookmarks" class="section hidden">
+            <h2>Bookmarked Questions</h2>
+            <div id="bookmarks-list">
+                <!-- Bookmarks will be loaded here -->
+            </div>
+        </div>
+
+        <div id="settings" class="section hidden">
+            <h2>Settings</h2>
+            <div class="settings-option">
+                <h3>Account</h3>
+                <p id="user-email-display"></p>
+                <button class="btn secondary" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
     </div>
-    
-    <!-- Add type="module" to script.js -->
+
     <script type="module" src="script.js"></script>
 </body>
 </html>
